@@ -278,6 +278,14 @@ class MainActivity : Activity() {
             }
         }
 
+        @Suppress("DEPRECATION")
+        @JavascriptInterface fun openBrowser() {
+            runOnUiThread {
+                startActivity(Intent(this@MainActivity, BrowserActivity::class.java))
+                overridePendingTransition(R.anim.br_in, R.anim.br_hold)
+            }
+        }
+
         @JavascriptInterface fun exit() {
             runOnUiThread { finishAndRemoveTask() }
         }

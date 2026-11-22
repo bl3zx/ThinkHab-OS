@@ -9,8 +9,8 @@ android {
         applicationId = "com.thinkhab"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 128
+        versionName = "1.2.8"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
