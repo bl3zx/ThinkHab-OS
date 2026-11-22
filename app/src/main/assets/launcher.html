@@ -56,7 +56,7 @@ svg{display:block}
 /* плитки */
 .stage{position:fixed;left:0;right:0;top:calc(calc(20*var(--v)) + var(--o));height:var(--F);z-index:2}
 .track{display:flex;align-items:flex-start;gap:var(--G);padding-left:8vw;transform:translateX(calc(var(--i,0) * (var(--W) + var(--G)) * -1 + var(--dx,0px)));transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .22s}
-.track.sw{opacity:0}
+.track.swp{opacity:0}
 .track.drag{transition:none}
 .empty{flex:none;width:var(--F);height:var(--F);display:grid;place-items:center;border-radius:calc(2.6*var(--v));border:1px dashed rgba(255,255,255,.4);cursor:pointer;animation:rise .8s cubic-bezier(.2,.8,.2,1) backwards}
 .empty svg{width:36%;height:36%;color:#fff;stroke-width:1.1;opacity:.65}
@@ -217,7 +217,7 @@ svg{display:block}
 #dlg.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .3s ease}
 .dbox{width:calc(64*var(--v));max-width:90vw;background:rgba(20,24,36,.95);border:1px solid rgba(255,255,255,.18);border-radius:calc(2.6*var(--v));padding:calc(3*var(--v));box-shadow:0 calc(3*var(--v)) calc(8*var(--v)) rgba(0,0,0,.5);opacity:0;transform:translateY(calc(2.4*var(--v))) scale(.93);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s ease}
 #dlg.on .dbox{opacity:1;transform:none}
-.dbox.sw>*{animation:dsw .38s ease both}
+.dbox.dswp>*{animation:dsw .38s ease both}
 @keyframes dsw{from{opacity:0;transform:translateY(calc(1*var(--v)))}}
 .dbox h3{font:400 calc(3.2*var(--v))/1.25 'Outfit',system-ui,sans-serif;margin-bottom:calc(2*var(--v))}
 .dli{display:block;width:100%;margin-bottom:calc(1.4*var(--v));background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:calc(1.2*var(--v));color:#fff;font:300 calc(2.5*var(--v)) 'Outfit',system-ui,sans-serif;padding:calc(1.1*var(--v)) calc(1.6*var(--v));outline:0}
@@ -458,10 +458,10 @@ $('#tabs').innerHTML=C.map((c,k)=>`<button class="tab" data-k="${k}">${c.t}</but
 $('#tabs').onclick=e=>{const k=e.target.dataset.k;if(k!=null&&stage=='menu')setCat(+k)};
 function setCat(k){if(k<0||k>=C.length||k==ci||pk||ovOn||stage!='menu')return;ci=k;build(true)}
 function build(sw){
-  const t=$('#trk');if(sw)t.classList.add('sw');
+  const t=$('#trk');if(sw)t.classList.add('swp');
   setTimeout(()=>{
     t.innerHTML=!C[ci].it.length?`<div class="empty">${ic('pad')}</div>`:C[ci].it.map((g,k)=>`<div class="tile" data-k="${k}" style="--a:${g.c}78;--b:#0b0d16b0;animation-delay:${Math.min(k,7)*70}ms">${g.img?`<img class="gi" src="data:image/png;base64,${g.img}">`:ic(g.i)}</div>`).join('');
-    t.classList.remove('sw');focus(true)},sw?180:0);
+    t.classList.remove('swp');focus(true)},sw?180:0);
   document.querySelectorAll('.tab').forEach((b,k)=>b.classList.toggle('on',k==ci));
 }
 function focus(q){
@@ -806,7 +806,7 @@ let dlgOn=false,dlgBtns=[];
 function openDlg(title,body,btns){
   $('#dt').textContent=title;$('#db').innerHTML=body;$('#dbt').innerHTML='';dlgBtns=btns;
   btns.forEach(b=>{const e=document.createElement('button');e.textContent=b.t;e.className='dbn'+(b.p?' pri':'');e.onclick=()=>b.fn();$('#dbt').appendChild(e)});
-  {const bx=document.querySelector('.dbox');bx.classList.remove('sw');void bx.offsetWidth;bx.classList.add('sw')}$('#dlg').classList.add('on');dlgOn=true;
+  {const bx=document.querySelector('.dbox');bx.classList.remove('dswp');void bx.offsetWidth;bx.classList.add('dswp')}$('#dlg').classList.add('on');dlgOn=true;
   const i=$('#db input');if(i&&!window.Android)setTimeout(()=>i.focus(),50);
 }
 function closeDlg(){$('#dlg').classList.remove('on');dlgOn=false}
